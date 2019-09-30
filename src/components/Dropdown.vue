@@ -2,9 +2,12 @@
 <div class="mdc-select mdc-select--outlined">
   <i class="mdc-select__dropdown-icon"></i>
   <select class="mdc-select__native-control">
-    <option :key="index" v-for="(option, index) in data" value="faces">
+    <option value="" disabled selected></option>
+    <optgroup>
+    <option :key="index" v-for="(option, index) in fetchList" :value="option">
       {{option}}
     </option>
+    </optgroup>
   </select>
   <label class="mdc-floating-label mdc-floating-label--float-above">Тип контакта</label>
   <div class="mdc-line-ripple"></div>
@@ -15,17 +18,15 @@
 
 export default {
   name: 'HelloWorld',
+  props: [
+    'fetchList'
+  ],
   data () {
     return {
-      data: [
-        'Только физ.лица',
-        'Все',
-        'Компании',
-        'Гос.организации'
-      ]
     }
   }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -43,6 +44,7 @@ export default {
 
 option {
   background-color:#F5F6FA;
+  // overflow: auto;
 }
 .mdc-select__dropdown-icon {
   bottom: 7px;
