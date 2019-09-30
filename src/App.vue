@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <Dropdown :fetchList="fetchList"></Dropdown>
+    <Dropdown @onChooseOption="setOption($event)" :fetchList="fetchList"></Dropdown>
+      Выбран:
+    {{
+      selectedOption
+    }}
     <router-view/>
   </div>
 </template>
@@ -17,7 +21,13 @@ export default {
   },
   data () {
     return {
-      fetchList: []
+      fetchList: [],
+      selectedOption: ''
+    }
+  },
+  methods: {
+    setOption (value) {
+      this.selectedOption = value
     }
   },
   created () {

@@ -1,7 +1,7 @@
 <template>
 <div class="mdc-select mdc-select--outlined">
   <i class="mdc-select__dropdown-icon"></i>
-  <select class="mdc-select__native-control">
+  <select @change="onChooseOption(chosenOption)" v-model="chosenOption" class="mdc-select__native-control">
     <option value="" disabled selected></option>
     <optgroup>
     <option :key="index" v-for="(option, index) in fetchList" :value="option">
@@ -23,6 +23,12 @@ export default {
   ],
   data () {
     return {
+      chosenOption: ''
+    }
+  },
+  methods: {
+    onChooseOption (value) {
+      this.$emit('onChooseOption', value)
     }
   }
 }
