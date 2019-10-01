@@ -1,17 +1,18 @@
 <template>
-<div class="mdc-select mdc-select--outlined">
-  <i class="mdc-select__dropdown-icon"></i>
-  <select @change="onChooseOption(chosenOption)" v-model="chosenOption" class="mdc-select__native-control">
-    <option value="" disabled selected></option>
-    <optgroup>
-    <option :key="index" v-for="(option, index) in fetchList" :value="option">
+  <div>
+  <label @click="toggleSelect" for="select" class="">
+    <p class="label-text">Тип контакта</p>
+      <p class="label-content">{{chosenOption}}</p>
+      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L5.83174 6L11 1" stroke="#818E94" stroke-width="2"/>
+      </svg>
+    </label>
+  <select size="5" name="select" @change="onChooseOption(chosenOption)" v-model="chosenOption" :class="[!shown ? selectNone : selectBlock]">
+    <option @click="toggleSelect" :key="index" v-for="(option, index) in fetchList" :value="option">
       {{option}}
     </option>
-    </optgroup>
   </select>
-  <label class="mdc-floating-label mdc-floating-label--float-above">Тип контакта</label>
-  <div class="mdc-line-ripple"></div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -23,12 +24,18 @@ export default {
   ],
   data () {
     return {
-      chosenOption: ''
+      chosenOption: 'asd',
+      shown: false,
+      selectNone: 'select-none',
+      selectBlock: 'select-block'
     }
   },
   methods: {
     onChooseOption (value) {
       this.$emit('onChooseOption', value)
+    },
+    toggleSelect () {
+      this.shown = this.shown === true ? false : true
     }
   }
 }
@@ -36,23 +43,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@material/select/mdc-select.scss";
-.mdc-select {
-  background-color: white !important;
-  border: 1px solid #E5E5E5;
+select {
+  width: 280px;
+}
+.select-none {
+  display: none;
+}
+svg {
+  position: relative;
+  bottom: 51px;
+  left: 89%;
+}
+.select-block {
+  display: block;
+}
+.label-content {
+  margin: 0;
+  position: relative;
+  bottom: 34px;
+  left: 18px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+}
+label {
+  display: block;
+  background: #FFFFFF;
+  border: 1px solid #C2CACD;
+  box-sizing: border-box;
   border-radius: 6px;
   width: 280px;
   height: 40px;
 }
-.mdc-select__native-control {
-  padding-top: 0px !important;
+.label-text {
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 13px;
+position: relative;
+bottom: 27px;
+left: 16px;
+color:#727779;
 }
-
-option {
-  background-color:#F5F6FA;
-  // overflow: auto;
-}
-.mdc-select__dropdown-icon {
-  bottom: 7px;
+label:hover{
+  cursor: pointer;
 }
 </style>

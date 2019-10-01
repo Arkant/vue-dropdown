@@ -11,7 +11,6 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@material/select": "^3.2.0",
     "axios": "^0.19.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.0.0",
